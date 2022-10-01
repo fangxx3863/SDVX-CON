@@ -1,6 +1,5 @@
 # SDVX-CON
 基于STC8H8K64U的10x10cm的SDVX键盘轴小手台  
-
 ![IMG_20221001_102452](https://user-images.githubusercontent.com/48589001/193379467-3a487edd-58fa-40b7-89d7-be1da38c1c4e.jpg)
 
 # 注意  
@@ -56,6 +55,16 @@
 
 ### 程序  
 #### 上传程序  
+1. 进入[发布页](https://github.com/fangxx3863/SDVX-CON/releases)下载最新预构建文件  
+2. 下载[STC-ISP](https://github.com/fangxx3863/SDVX-CON/blob/main/extra/stc-isp-v6.90K.exe)下载工具  
+3. 打开STC-ISP并按下图设置  
+![image](https://user-images.githubusercontent.com/48589001/193384423-4ca1d5cc-f8cb-44fd-bea5-ec1373162a4b.png)    
+4. 确认无误后点击下载/编程  
+5. 按住主板背后的USB-ISP按钮的同时插入USB线,如无意外则程序自动开始下载  
+6. 如果未开始下载,可再按下RST按钮  
+7. 等待下载完成即可使用  
+8. 供参考的SpiceTools设置  
+![image](https://user-images.githubusercontent.com/48589001/193384475-bb26df7b-a642-47b9-b3cb-4981e00f28cf.png)  
 
 #### 二次开发  
 1. 克隆本项目并用VSCode打开  
@@ -63,3 +72,8 @@
 3. 点击构建器选项旁边的笔图标  
 4. 进入全局选项选项卡将RAM/ROM模式均改为LARGE,并点击右上角全部保存按钮  
 5. 程序修改完毕后按右上角下载图标即可完成编译  
+
+### 后记  
+做这个台子还算顺利的,这也是我第一次玩STC的单片机,也算是学习了,代码写的挺烂的,但是胜在能用(笑)  
+祝各位早日FC!!!  
+![IMG_20221001_112508](https://user-images.githubusercontent.com/48589001/193385536-600fe88c-e444-4633-a4fb-842337760356.jpg)
