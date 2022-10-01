@@ -1,5 +1,6 @@
 # SDVX-CON
-基于STC8H8K64U的10x10cm的SDVX键盘轴小手台  
+**基于STC8H8K64U的SDVX键盘轴小手台**  
+**成本不到60RMB!!!**  
 ![IMG_20221001_102452](https://user-images.githubusercontent.com/48589001/193379467-3a487edd-58fa-40b7-89d7-be1da38c1c4e.jpg)
 
 # 注意  
