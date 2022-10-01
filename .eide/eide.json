@@ -1,0 +1,77 @@
+{
+  "name": "stc_usb_keyboard",
+  "type": "C51",
+  "dependenceList": [],
+  "srcDirs": [],
+  "virtualFolder": {
+    "name": "<virtual_root>",
+    "files": [],
+    "folders": [
+      {
+        "name": "Source Group 1",
+        "files": [
+          {
+            "path": "src/main.c"
+          },
+          {
+            "path": "src/timer.c"
+          },
+          {
+            "path": "src/usb_desc.c"
+          },
+          {
+            "path": "src/usb_req_class.c"
+          },
+          {
+            "path": "src/usb_req_std.c"
+          },
+          {
+            "path": "src/usb_req_vendor.c"
+          },
+          {
+            "path": "src/usb.c"
+          },
+          {
+            "path": "src/util.c"
+          },
+          {
+            "path": "src/WS2812.c"
+          }
+        ],
+        "folders": []
+      }
+    ]
+  },
+  "outDir": "build",
+  "deviceName": null,
+  "packDir": null,
+  "miscInfo": {
+    "uid": "adb6e42b76f1268ffe7223af47f21814"
+  },
+  "targets": {
+    "Target 1": {
+      "excludeList": [],
+      "toolchain": "Keil_C51",
+      "compileConfig": {
+        "options": "null"
+      },
+      "uploader": "Custom",
+      "uploadConfig": {
+        "bin": "",
+        "commandLine": "",
+        "eraseChipCommand": ""
+      },
+      "uploadConfigMap": {},
+      "custom_dep": {
+        "name": "default",
+        "incList": [
+          "../../../../../Program Files/KEIL5/C51/INC/STC"
+        ],
+        "libList": [],
+        "sourceDirList": [],
+        "defineList": []
+      }
+    }
+  },
+  "version": "3.3"
+}

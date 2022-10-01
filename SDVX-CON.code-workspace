@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "INTRINS.H": "cpp"
+        }
+    },
+    "extensions": {}
+}

@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "beforeBuildTasks": [],
+    "afterBuildTasks": [],
+    "global": {
+        "ram-mode": "LARGE",
+        "rom-mode": "LARGE"
+    },
+    "c/cpp-compiler": {
+        "optimization-type": "SIZE",
+        "optimization-level": "level-8"
+    },
+    "asm-compiler": {},
+    "linker": {
+        "remove-unused": true,
+        "output-format": "elf",
+        "use-RTX": "None"
+    }
+}
