@@ -15,9 +15,19 @@ void ws2812_allot() {
     u8 i,j;
     for(i=0;i<WSCOUNT;i++)
         for(j=0;j<3;j++) {
-            if (j==1) WS2812_BUffer[i][j]=50;
-            else WS2812_BUffer[i][j]=0;
+            if (j==1) WS2812_Buffer[i][j]=50;
+            else WS2812_Buffer[i][j]=0;
         }
+}
+
+// 清空颜色
+void lighting_clear() {
+    u8 i;
+    for(i=0;i<WSCOUNT;i++) {
+        WS2812_Buffer[i][0] = 0;
+        WS2812_Buffer[i][1] = 0;
+        WS2812_Buffer[i][2] = 0;
+    }
 }
 
 // 随按键改变颜色
@@ -44,14 +54,14 @@ void lighting_effect_1() {
                 b_step = b == 0?1:(b == 0xff?-1:b_step);
                 b += (cnt / 0x100) != 2?0:b_step;
                 
-                WS2812_BUffer[k][0] = r;
-                WS2812_BUffer[k][1] = g;
-                WS2812_BUffer[k][2] = b;
+                WS2812_Buffer[k][0] = r;
+                WS2812_Buffer[k][1] = g;
+                WS2812_Buffer[k][2] = b;
                 cnt++;
             }else {
-                WS2812_BUffer[k][0] = 0;
-                WS2812_BUffer[k][1] = 0;
-                WS2812_BUffer[k][2] = 0;
+                WS2812_Buffer[k][0] = 0;
+                WS2812_Buffer[k][1] = 0;
+                WS2812_Buffer[k][2] = 0;
             }
         }
         last_key = ~P1;
@@ -71,13 +81,13 @@ void lighting_effect_2(u8 mode) {
         for (i=0; i<8; i++) {
             if (i > 2) {k = i - 1;} else {k = i;}
             if (key & (1 << i)) {
-                WS2812_BUffer[k][0] = preset_color[mode].r;
-                WS2812_BUffer[k][1] = preset_color[mode].g;
-                WS2812_BUffer[k][2] = preset_color[mode].b;
+                WS2812_Buffer[k][0] = preset_color[mode].r;
+                WS2812_Buffer[k][1] = preset_color[mode].g;
+                WS2812_Buffer[k][2] = preset_color[mode].b;
             }else {
-                WS2812_BUffer[k][0] = 0;
-                WS2812_BUffer[k][1] = 0;
-                WS2812_BUffer[k][2] = 0;
+                WS2812_Buffer[k][0] = 0;
+                WS2812_Buffer[k][1] = 0;
+                WS2812_Buffer[k][2] = 0;
             }
         }
         last_key = ~P1;
@@ -104,10 +114,11 @@ void lighting_effect_3() {
             b_step = b == 0?1:(b == 0xff?-1:b_step);
             b += (cnt / 0x100) != 2?0:b_step;
             
-            WS2812_BUffer[i][0] = r;
-            WS2812_BUffer[i][1] = g;
-            WS2812_BUffer[i][2] = b;
+            WS2812_Buffer[i][0] = r;
+            WS2812_Buffer[i][1] = g;
+            WS2812_Buffer[i][2] = b;
             cnt++;
         }
     }
 }
+

@@ -14,7 +14,7 @@
 
 基于STC8H8K64U实现的SDVX手台
 
-下载时, 设置IRC工作频率为 24MHz.
+下载时, 设置IRC工作频率为 24MHz - 40Mhz 之间.
 
 ******************************************/
 
@@ -50,24 +50,42 @@ void main() {
 
     // 主循环
     while (1) {
-        EC_Loop(500);      // 编码器计时
+        EC_Loop(800);      // 编码器计时
         usb_class_in();     // USB数据发送
 
         // 灯效切换检测
         ls = !P35;
-        if ((ls != last_ls) && loop > 600) {
+        if ((ls != last_ls) && loop > 800) {
             lighting_effect++;
             loop = 0;
             last_ls = ls;
         }if (lighting_effect >= 14) lighting_effect = 0;
 
         // 选择灯效
-        if (lighting_effect == 0) lighting_effect_1();
-        if (lighting_effect == 2) lighting_effect_2(0);
-        if (lighting_effect == 4) lighting_effect_2(1);
-        if (lighting_effect == 6) lighting_effect_2(2);
-        if (lighting_effect == 8) lighting_effect_2(3);
-        if (lighting_effect == 10) lighting_effect_3();
+        switch (lighting_effect) {
+        case 0:
+            lighting_effect_1();
+            break;
+        case 2:
+            lighting_effect_2(0);
+            break;
+        case 4:
+            lighting_effect_2(1);
+            break;
+        case 6:
+            lighting_effect_2(2);
+            break;
+        case 8:
+            lighting_effect_2(3);
+            break;
+        case 10:
+            lighting_effect_3();
+            break;
+        
+        default:
+            lighting_clear();
+            break;
+        }
 
         WS2812_Ser();   // WS2812数据发送
         loop++;         // 循环计数

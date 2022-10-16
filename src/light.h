@@ -6,6 +6,7 @@ typedef struct {
 } Pixel;
 
 void ws2812_allot();
+void lighting_clear();
 void lighting_effect_1();
 void lighting_effect_2(u8 mode);
 void lighting_effect_3();

@@ -2,7 +2,7 @@
 #include "WS2812.h"
 #include <intrins.h>
 
-u8 WS2812_BUffer[WSCOUNT][3];
+u8 WS2812_Buffer[WSCOUNT][3];
 void WS2812_write_date()
 {
 		u8 i,j,k,a;
@@ -12,9 +12,9 @@ void WS2812_write_date()
 				{
 						switch(j)
 						{
-							case 0:a=WS2812_BUffer[k][1];break;
-							case 1:a=WS2812_BUffer[k][0];break;
-							case 2:a=WS2812_BUffer[k][2];break;
+							case 0:a=WS2812_Buffer[k][1];break;
+							case 1:a=WS2812_Buffer[k][0];break;
+							case 2:a=WS2812_Buffer[k][2];break;
 						}
 						for(i=0;i<8;i++)
 						{
