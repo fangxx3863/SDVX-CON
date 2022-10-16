@@ -11,6 +11,9 @@
         "name": "Source Group 1",
         "files": [
           {
+            "path": "src/light.c"
+          },
+          {
             "path": "src/main.c"
           },
           {

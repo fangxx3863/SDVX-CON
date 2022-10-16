@@ -6,7 +6,8 @@
     ],
     "settings": {
         "files.associations": {
-            "INTRINS.H": "cpp"
+            "INTRINS.H": "cpp",
+            "ws2812.h": "c"
         }
     },
     "extensions": {}

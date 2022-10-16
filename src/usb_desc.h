@@ -4,8 +4,8 @@
 extern char code DEVICEDESC[18];
 extern char code CONFIGDESC[41];
 extern char code LANGIDDESC[4];
-extern char code MANUFACTDESC[8];
-extern char code PRODUCTDESC[34];
+extern char code MANUFACTDESC[22];
+extern char code PRODUCTDESC[28];
 
 extern char code HIDREPORTDESC[65];
 extern char code PACKET0[2];

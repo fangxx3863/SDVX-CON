@@ -2,7 +2,6 @@
 #include "WS2812.h"
 #include <intrins.h>
 
-
 u8 WS2812_BUffer[WSCOUNT][3];
 void WS2812_write_date()
 {

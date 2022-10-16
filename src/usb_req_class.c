@@ -9,164 +9,152 @@
 /* --- QQ:  800003751 -------------------------------------------------*/
 /*---------------------------------------------------------------------*/
 
+// 导入头文件
 #include "stc.h"
 #include "usb.h"
 #include "usb_req_class.h"
 
-#define EX2 0x10
-#define EX3 0x20
-#define EX4 0x40
-
+// 定义中断位
+#define EX2         0x10
+#define EX3         0x20
+#define EX4         0x40
 #define DIS_DOT     0x20
 #define DIS_BLACK   0x10
 #define DIS_        0x11
 
 BYTE bHidIdle;
-BYTE keyMap[8] = {0x07, 0x09, 0x00, 0x0d, 0x0e, 0x06, 0x10, 0x28};
+BYTE keyMap[8] = {0x07, 0x09, 0x00, 0x0d, 0x0e, 0x06, 0x10, 0x28};  // 定义按键键码
+//                 D     F           J     K      C     M   ENTER
 
-sbit LED_NUM        = P6^7;
-sbit LED_CAPS       = P6^6;
-sbit LED_SCROLL     = P6^5;
-
+// 声明编码器全局变量
 u32 EC1_LOOP = 0;
 u32 EC2_LOOP = 0;
 int EC1_Path = 0;
 int EC2_Path = 0;
 
-void usb_req_class()
-{
-    switch (Setup.bRequest)
-    {
+// USB请求类
+void usb_req_class() {
+  switch (Setup.bRequest) {
     case GET_REPORT:
-        usb_get_report();
-        break;
+      usb_get_report();
+      break;
     case SET_REPORT:
-        usb_set_report();
-        break;
+      usb_set_report();
+      break;
     case GET_IDLE:
-        usb_get_idle();
-        break;
+      usb_get_idle();
+      break;
     case SET_IDLE:
-        usb_set_idle();
-        break;
+      usb_set_idle();
+      break;
     case GET_PROTOCOL:
-        usb_get_protocol();
-        break;
+      usb_get_protocol();
+      break;
     case SET_PROTOCOL:
-        usb_set_protocol();
-        break;
+      usb_set_protocol();
+      break;
     default:
-        usb_setup_stall();
-        return;
-    }
+      usb_setup_stall();
+      return;
+  }
 }
 
-void usb_get_report()
-{
-    if ((DeviceState != DEVSTATE_CONFIGURED) ||
-        (Setup.bmRequestType != (IN_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT)))
-    {
-        usb_setup_stall();
-        return;
-    }
-
-    Ep0State.pData = UsbBuffer;
-    Ep0State.wSize = Setup.wLength;
-
-    usb_setup_in();
-}
-
-void usb_set_report()
-{
-    if ((DeviceState != DEVSTATE_CONFIGURED) ||
-        (Setup.bmRequestType != (OUT_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT)))
-    {
-        usb_setup_stall();
-        return;
-    }
-
-    Ep0State.pData = UsbBuffer;
-    Ep0State.wSize = Setup.wLength;
-
-    usb_setup_out();
-}
-
-void usb_get_idle()
-{
-    if ((DeviceState != DEVSTATE_CONFIGURED) ||
-        (Setup.bmRequestType != (IN_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT)))
-    {
-        usb_setup_stall();
-        return;
-    }
-
-    Ep0State.pData = &bHidIdle;
-    Ep0State.wSize = 1;
-
-    usb_setup_in();
-}
-
-void usb_set_idle()
-{
-    if ((DeviceState != DEVSTATE_CONFIGURED) ||
-        (Setup.bmRequestType != (OUT_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT)))
-    {
-        usb_setup_stall();
-        return;
-    }
-
-    bHidIdle = Setup.wValueH;
-
-    usb_setup_status();
-}
-
-void usb_get_protocol()
-{
+// USB获取报文
+void usb_get_report() {
+  if ((DeviceState != DEVSTATE_CONFIGURED) ||
+      (Setup.bmRequestType !=
+       (IN_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT))) {
     usb_setup_stall();
+    return;
+  }
+
+  Ep0State.pData = UsbBuffer;
+  Ep0State.wSize = Setup.wLength;
+
+  usb_setup_in();
 }
 
-void usb_set_protocol()
-{
+// USB发送报文
+void usb_set_report() {
+  if ((DeviceState != DEVSTATE_CONFIGURED) ||
+      (Setup.bmRequestType !=
+       (OUT_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT))) {
     usb_setup_stall();
+    return;
+  }
+
+  Ep0State.pData = UsbBuffer;
+  Ep0State.wSize = Setup.wLength;
+
+  usb_setup_out();
 }
 
-void usb_class_out()
-{
-    BYTE led;
-    
-    if (usb_bulk_intr_out(UsbBuffer, 1) == 1)
-    {
-        P4M0 &= ~0x01;
-        P4M1 &= ~0x01;
-        P6M0 &= ~0xe0;
-        P6M1 &= ~0xe0;
-        P40 = 0;
-        
-        led = UsbBuffer[0];
-        LED_NUM = !(led & 0x01);
-        LED_CAPS = !(led & 0x02);
-        LED_SCROLL = !(led & 0x04);
-    }
+// 获取USB闲置状态
+void usb_get_idle() {
+  if ((DeviceState != DEVSTATE_CONFIGURED) ||
+      (Setup.bmRequestType !=
+       (IN_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT))) {
+    usb_setup_stall();
+    return;
+  }
+
+  Ep0State.pData = &bHidIdle;
+  Ep0State.wSize = 1;
+
+  usb_setup_in();
 }
 
+// 设置USB闲置状态
+void usb_set_idle() {
+  if ((DeviceState != DEVSTATE_CONFIGURED) ||
+      (Setup.bmRequestType !=
+       (OUT_DIRECT | CLASS_REQUEST | INTERFACE_RECIPIENT))) {
+    usb_setup_stall();
+    return;
+  }
+
+  bHidIdle = Setup.wValueH;
+
+  usb_setup_status();
+}
+
+// 获取USB协议
+void usb_get_protocol() { usb_setup_stall(); }
+
+// 设置USB协议
+void usb_set_protocol() { usb_setup_stall(); }
+
+// USB输出类
+void usb_class_out() {
+  BYTE led;
+
+  if (usb_bulk_intr_out(UsbBuffer, 1) == 1) {
+    P4M0 &= ~0x01;
+    P4M1 &= ~0x01;
+    P6M0 &= ~0xe0;
+    P6M1 &= ~0xe0;
+    P40 = 0;
+    led = UsbBuffer[0];
+  }
+}
+
+// USB输入类
 void usb_class_in()
 {
     BYTE key[16];
     BYTE i;
     BYTE p;
+
+    // 清空所有键值
+    for (i=0; i<16; i++) {
+        key[i] = 0;
+    }
     
+    // 查询设备状态
     if (DeviceState != DEVSTATE_CONFIGURED)
         return;
 
-    if (!UsbInBusy)
-    {
-        // 清空所有键值
-        for (i=0; i<16; i++) {
-            key[i] = 0;
-        }
-        
-        
-
+    if (!UsbInBusy) {
         // 扫描按键
         for (i=0; i<8; i++) {
             if (~P1 & (1 << i)) {
@@ -190,7 +178,7 @@ void usb_class_in()
         if (EC1_Path == -1) {
             for (p=0; p<14; p++) {
                 if (key[p+2] == 0x00) {
-                    key[p+2] = 0x14;
+                    key[p+2] = 0x14;    // 左转键码
                     // EC1_Path = 0;
                     break;
                 }
@@ -198,7 +186,7 @@ void usb_class_in()
         }else if (EC1_Path == 1) {
             for (p=0; p<14; p++) {
                 if (key[p+2] == 0x00) {
-                    key[p+2] = 0x1A;
+                    key[p+2] = 0x1A;    // 右转键码
                     // EC1_Path = 0;
                     break;
                 }
@@ -209,7 +197,7 @@ void usb_class_in()
         if (EC2_Path == -1) {
             for (p=0; p<14; p++) {
                 if (key[p+2] == 0x00) {
-                    key[p+2] = 0x12;
+                    key[p+2] = 0x12;    // 左转键码
                     // EC2_Path = 0;
                     break;
                 }
@@ -217,13 +205,14 @@ void usb_class_in()
         }else if (EC2_Path == 1) {
             for (p=0; p<14; p++) {
                 if (key[p+2] == 0x00) {
-                    key[p+2] = 0x13;
+                    key[p+2] = 0x13;    // 右转键码
                     // EC2_Path = 0;
                     break;
                 }
             }
         }
 
+        // 发送报文
         IE2 &= ~0x80;   //EUSB = 0;
         UsbInBusy = 1;
         usb_write_reg(INDEX, 1);
@@ -236,14 +225,13 @@ void usb_class_in()
     }
 }
 
+// 编码器计时
 void EC_Loop(u32 LOOP) {
     EC1_LOOP++;
     EC2_LOOP++;
     if (EC1_LOOP >= LOOP) {EC1_Path = 0; EC1_LOOP = 0;}
     if (EC2_LOOP >= LOOP) {EC2_Path = 0; EC2_LOOP = 0;}
 }
-
-
 
 /********************* INT0中断函数 *************************/
 void INT0_int (void) interrupt 0      //进中断时已经清除标志

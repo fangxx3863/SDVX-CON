@@ -7,12 +7,13 @@
 /* --- Web: www.STCMCU.com --------------------------------------------*/
 /* --- Web: www.STCMCUDATA.com  ---------------------------------------*/
 /* --- QQ:  800003751 -------------------------------------------------*/
-/* 濡傛灉瑕佸湪绋嬪簭涓娇鐢ㄦ浠ｇ爜,璇峰湪绋嬪簭涓敞鏄庝娇鐢ㄤ簡STC鐨勮祫鏂欏強绋嬪簭        */
+/* 如果要在程序中使用此代码,请在程序中注明使用了STC的资料及程序             */
 /*---------------------------------------------------------------------*/
 
 #include "stc.h"
 #include "usb_desc.h"
 
+// 设备描述符
 char code DEVICEDESC[18] =
 {
     0x12,                   //bLength(18);
@@ -31,6 +32,7 @@ char code DEVICEDESC[18] =
     0x01,                   //bNumConfigurations(1);
 };
 
+// 配置描述符
 char code CONFIGDESC[41] =
 {
     0x09,                   //bLength(9);
@@ -82,12 +84,12 @@ Input Report:
 2	Keycode 1
 3	Keycode 2
 4	Keycode 3
-5	Keycode 4
-6	Keycode 5
-7	Keycode 6
+.............
+15	Keycode 14
 Output Report:
 0   LEDs (D0:NumLock D1:CapLock D2:ScrollLock)
 */
+// HID描述符
 char code HIDREPORTDESC[65] =
 {
     0x05,0x01,              //USAGE_PAGE(Generic Desktop);
@@ -130,30 +132,37 @@ char code HIDREPORTDESC[65] =
     0xc0,                   //END_COLLECTION;
 };
 
+// 语言描述符(EN)
 char code LANGIDDESC[4] =
 {
     0x04,0x03,
     0x09,0x04,
 };
 
-char code MANUFACTDESC[8] =
+// 制造商描述符
+char code MANUFACTDESC[22] =
 {
-    0x08,0x03,
-    'S',0,
-    'T',0,
-    'C',0,
+    0x16,0x03,
+    'F',0,
+    'A',0,
+    'N',0,
+    'G',0,
+    'X',0,
+    'X',0,
+    '3',0,
+    '8',0,
+    '6',0,
+    '3',0,
 };
 
-char code PRODUCTDESC[34] =
+// 产品描述符
+char code PRODUCTDESC[28] =
 {
-    0x22,0x03,
+    0x1C,0x03,
     'S',0,
-    'T',0,
-    'C',0,
-    ' ',0,
-    'U',0,
-    'S',0,
-    'B',0,
+    'D',0,
+    'V',0,
+    'X',0,
     ' ',0,
     'K',0,
     'e',0,
@@ -165,11 +174,13 @@ char code PRODUCTDESC[34] =
     'd',0,
 };
 
+// 低包
 char code PACKET0[2] = 
 {
     0, 0,
 };
 
+// 高包
 char code PACKET1[2] = 
 {
     1, 0,
