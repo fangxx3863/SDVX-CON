@@ -50,7 +50,7 @@ void main() {
 
     // 主循环
     while (1) {
-        EC_Loop(800);      // 编码器计时
+        EC_Loop(800);       // 编码器计时
         usb_class_in();     // USB数据发送
 
         // 灯效切换检测
@@ -87,13 +87,13 @@ void main() {
             break;
         }
 
-        WS2812_Ser();   // WS2812数据发送
+        WS2812_Transmit();   // WS2812数据发送
         loop++;         // 循环计数
     }
 }
 
 void sys_init() {
-	P_SW2 |= 0x80;  // 扩展寄存器(XFR)访问使能
+    P_SW2 |= 0x80;  // 扩展寄存器(XFR)访问使能
 
     P3M0 &= ~0x03;  // 设置USB口高阻输入
     P3M1 |= 0x03;

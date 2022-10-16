@@ -13,6 +13,6 @@ WSCASE=7 10  9  8
 #define WSCOUNT 7
 sbit WS2812_DI = P3^4;
 //sbit WS2812_DI=P5^5;
-extern void WS2812_Ser();
+extern void WS2812_Transmit();
 extern u8 WS2812_Buffer[WSCOUNT][3];
 #endif

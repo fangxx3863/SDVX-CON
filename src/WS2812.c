@@ -63,7 +63,7 @@ a<<=1;
 				}
 		}
 }
-void WS2812_Ser()
+void WS2812_Transmit()
 {
 		static u8 count=0;
 		count++;
